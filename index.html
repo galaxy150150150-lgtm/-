@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Special Confession</title>
+    <style>
+        body {
+            background-color: #ffe6e6;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+            max-width: 350px;
+            width: 90%;
+            position: relative;
+        }
+
+        .img-box {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 20px auto;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        h1 {
+            color: #ff4757;
+            font-size: 22px;
+            margin-bottom: 20px;
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            position: relative;
+            height: 60px;
+            align-items: center;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: 0.2s ease;
+        }
+
+        #yes-btn {
+            background-color: #ff4757;
+            color: white;
+        }
+
+        #no-btn {
+            background-color: #ced6e0;
+            color: #2f3542;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="card">
+        <div class="img-box">
+            <img id="display-img" src="https://media.giphy.com/media/26BRv0ThflsHCqDrG/giphy.gif" alt="Cute">
+        </div>
+        
+        <h1 id="question-text">ပိစိလေး ချစ်တယ်ပြောရင် ညင်းမှာလားရှင်?</h1>
+
+        <div class="btn-group">
+            <button id="yes-btn" onclick="handleYes()">မညင်းပါဘူး 💕</button>
+            <button id="no-btn" onclick="handleNo()">ညင်းတယ် 😢</button>
+        </div>
+    </div>
+
+    <script>
+        let noClickCount = 0;
+        
+        // ညင်းတယ် နှိပ်လိုက်တိုင်း ပြောင်းမယ့် စာသားများ၊ ပုံများနှင့် ခလုတ်အရွယ်အစားများ
+        const messages = [
+            "ဟင်... တကယ်ပဲ ညင်းမှာလား စဉ်းစားပါဦး နော် 🥺",
+            "မျက်နှာငယ်လေးနဲ့ တောင်းဆိုနေတာနော်... မညင်းပါနဲ့တော့ 😭",
+            "စနောက်နေတာမလား... တကယ်မချစ်ဘူးလားဟင် 💔",
+            "စိတ်မကောင်းစရာကြီး... နောက်တစ်ခါ ထပ်စဉ်းစားပေးပါနော် 😣",
+            "နောက်ဆုံးအကြိမ် မေးမယ်... မညင်းနဲ့တော့နော့် 🙏",
+            "ကဲ... ဆိုးတယ် သိလား 😤"
+        ];
+
+        const images = [
+            "https://media.giphy.com/media/3o7TKSjRrfIPjeiOkM/giphy.gif",
+            "https://media.giphy.com/media/9XY4f3C0Tl4jqcEpHR/giphy.gif",
+            "https://media.giphy.com/media/122PpN1BtlSxYQ/giphy.gif",
+            "https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif",
+            "https://media.giphy.com/media5/3oEjI6SIIHBdRxXI40/giphy.gif",
+            "https://media.giphy.com/media/3oKIPnAiaMCws8nOsE/giphy.gif"
+        ];
+
+        function handleNo() {
+            noClickCount++;
+            const noBtn = document.getElementById("no-btn");
+            const yesBtn = document.getElementById("yes-btn");
+            const questionText = document.getElementById("question-text");
+            const displayImg = document.getElementById("display-img");
+
+            if (noClickCount < 6) {
+                // စာသားနှင့် ပုံပြောင်းလဲခြင်း
+                questionText.innerText = messages[noClickCount - 1];
+                // ခလုတ်အရွယ်အစား ၅ ဆင့် အတိုင်းအတာဖြင့် ငယ်သွားစေရန်
+                let scaleSize = 1 - (noClickCount * 0.15);
+                noBtn.style.transform = `scale(${scaleSize})`;
+                
+                // YES ခလုတ်လေး တဖြည်းဖြည်း ကြီးလာစေရန်
+                let yesScale = 1 + (noClickCount * 0.1);
+                yesBtn.style.transform = `scale(${yesScale})`;
+            } else {
+                // ၆ ကြိမ်မြောက်ရောက်လျှင် 'ညင်းတယ်' ခလုတ် ပျောက်သွားမည်
+                noBtn.style.display = "none";
+                questionText.innerText = "ကဲပါ... အခုတော့ မညင်းတော့ဘူးမို့လား ဟီးဟီး ❤️";
+            }
+        }
+
+        function handleYes() {
+            document.getElementById("card").innerHTML = `
+                <div class="img-box">
+                    <img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" alt="Happy">
+                </div>
+                <h1 style="color: #ff4757;">Yay! ချစ်တယ်နော် ပိစိလေး... 🥰❤️</h1>
+                <p style="color: #57606f;">လက်ခံပေးတဲ့အတွက် အရမ်းပျော်တာပဲရှင်။</p>
+            `;
+        }
+    </script>
+</body>
+</html>
